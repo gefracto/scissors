@@ -1,9 +1,9 @@
-Table specification
+## Table specification
 
 For now table package must have next instances:
 
-1. Table instance: must be assertable to Table interface
-
+### 1. Table instance: must be assertable to Table interface
+```go
 type Table interface {
 	Select(key string, args ...interface{})(interface{}, error)
 	Update(key string, value interface{}, args ...interface{}) error
@@ -12,24 +12,26 @@ type Table interface {
 	Upsert(key string, value interface{}, args ...interface{}) error
 	Close()
 }
+```
+In future, this interface may be expanded or changed, don't forget about it.
 
-In future, this interface may be expanded or changed, don`t forget about it.
 
+### 2. Table connection driver e.g. :
+```go
+	type Driver struct{}
 
-2. Table connection driver e.g. :
+	func (d *Driver) Open(tablename string, args ...interface{}) (Table, error) {
+		...
+	}
 
-type Driver struct{}
-
-func (d *Driver) Open(tablename string, args ...interface{}) (Table, error) {
-	...
-}
-
-func (d *Driver) Create(tablename string, args ...interface{}) (Table, error) {
-	...
-}
+	func (d *Driver) Create(tablename string, args ...interface{}) (Table, error) {
+		...
+	}
+```
 
 If args parameter is necessary, it must be described (their types and order) in applicated documentation.
-Additional information will be given in process of development.
+
+*Additional information will be given in process of development.*
 
 
 
