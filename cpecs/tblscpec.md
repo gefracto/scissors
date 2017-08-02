@@ -18,6 +18,7 @@ In future, this interface may be expanded or changed, don't forget about it.
 
 ### 2. Table connection driver e.g. :
 ```go
+	import "scissors"
 	type Driver struct{}
 
 	func (d *Driver) Open(tablename string, args ...interface{}) (Table, error) {
@@ -27,9 +28,14 @@ In future, this interface may be expanded or changed, don't forget about it.
 	func (d *Driver) Create(tablename string, args ...interface{}) (Table, error) {
 		...
 	}
+	
+	func init() {
+		scissors.Register("drivername", &Driver{})
+	}
+	
 ```
 
-If args parameter is necessary, it must be described (their types and order) in applicated documentation.
+If args parameter required, it must be described (their types and order) in applicated documentation.
 
 *Additional information will be given in process of development.*
 
